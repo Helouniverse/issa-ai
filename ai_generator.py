@@ -79,7 +79,8 @@ def generate_ai_reply(history, client_sequence):
         "client_sequence": client_sequence
     }
     
-    system_instruction = get_system_prompt()
+    base_instruction = get_system_prompt()
+    system_instruction = base_instruction + "\n\nCRITICAL ENFORCED RULE: You must keep your responses extremely conversational, highly empathetic, and concise (maximum 2 to 3 sentences). ONLY answer the specific question asked by the user in this exact sequence. NEVER output long lists of all visa categories or generic advice unless the user explicitly requested a list of every visa."
     
     try:
         response = client.models.generate_content(
