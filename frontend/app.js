@@ -4,10 +4,12 @@ const API_URL = "/generate-reply";
 const chatBox = document.getElementById("chatBox");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
+const manualRateBtn = document.getElementById("manualRateBtn");
 
 // State
 let chatHistory = [];
 let messageCount = 0;
+let targetMessageCount = Math.floor(Math.random() * 8) + 3; // Random between 3 and 10
 let currentPromptId = null;
 
 // Modal Elements
@@ -63,14 +65,18 @@ function hideModal() {
         commentContainer.classList.add("hidden");
         modalTitle.textContent = "How is my advice?";
         modalDesc.textContent = "Please rate your AI assistant experience.";
+        
+        // Reset recurring logic
+        messageCount = 0;
+        targetMessageCount = Math.floor(Math.random() * 8) + 3;
     }, 300);
 }
 
 closeModalBtn.addEventListener("click", hideModal);
+manualRateBtn.addEventListener("click", showModal);
 
 stars.forEach((star, index) => {
     star.addEventListener("click", async () => {
-        // Light up stars
         stars.forEach((s, i) => {
             if (i <= index) s.classList.add("active");
             else s.classList.remove("active");
@@ -78,7 +84,6 @@ stars.forEach((star, index) => {
         
         const rating = index + 1;
         
-        // Submit rating to API
         try {
             const res = await fetch("/submit-rating", {
                 method: "POST",
@@ -88,7 +93,6 @@ stars.forEach((star, index) => {
             const data = await res.json();
             
             if (data.isHighest === false) {
-                // The AI degraded! Ask for a comment to auto-improve it.
                 modalTitle.textContent = "Oh no, let's fix this.";
                 modalDesc.textContent = `Score dropped to ${data.newScore.toFixed(1)}. Tell the AI exactly how to improve its behavior.`;
                 commentContainer.classList.remove("hidden");
@@ -163,18 +167,15 @@ async function handleSendMessage() {
         if (response.ok && data.aiReply) {
             appendMessage("consultant", data.aiReply);
             
-            // Save context
             chatHistory.push({ role: "client", message: text });
             chatHistory.push({ role: "consultant", message: data.aiReply });
             
-            // Track Prompt ID
             if (data.promptId) {
                 currentPromptId = data.promptId;
             }
             
-            // Check for Rating Popup Trigger
             messageCount++;
-            if (messageCount === 3) {
+            if (messageCount === targetMessageCount) {
                 showModal();
             }
             

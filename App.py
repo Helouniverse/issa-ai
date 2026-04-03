@@ -109,14 +109,17 @@ def submit_rating():
         current_score = res.data[0]["score"]
         # Exponential moving average calculation
         # New score = (Current Score * 0.7) + (Rating * 0.3)
-        # If it's the first rating (score 0), just take the rating directly
+        # Calculate new score
         if current_score == 0:
             new_score = float(rating)
         else:
             new_score = (current_score * 0.7) + (float(rating) * 0.3)
             
-        # Update database
-        supabase.table("prompts").update({"score": new_score}).eq("id", prompt_id).execute()
+        from datetime import datetime, timezone
+        now_ts = datetime.now(timezone.utc).isoformat()
+            
+        # Update database with new score and updated_at
+        supabase.table("prompts").update({"score": new_score, "updated_at": now_ts}).eq("id", prompt_id).execute()
         
         # Check if it is still the highest score
         high_res = supabase.table("prompts").select("score").eq("name", "visa_consultant_v1").order("score", desc=True).limit(1).execute()
