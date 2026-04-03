@@ -191,7 +191,8 @@ def call_editor_ai(editor_input, system_prompt):
         return None
 
 def optimize_prompt_gap(chat_history, client_sequence, real_reply):
-    existing_prompt = get_system_prompt()
+    prompt_data = get_system_prompt()
+    existing_prompt = prompt_data.get("content", "")
     current_version = get_current_version()
     
     predicted_reply_json_str = generate_ai_reply(chat_history, client_sequence)
@@ -219,7 +220,8 @@ def optimize_prompt_gap(chat_history, client_sequence, real_reply):
     return None
 
 def optimize_prompt_manual(instructions):
-    existing_prompt = get_system_prompt()
+    prompt_data = get_system_prompt()
+    existing_prompt = prompt_data.get("content", "")
     current_version = get_current_version()
     
     MANUAL_SYSTEM_PROMPT = "You are an expert prompt engineer. Your job is to strictly apply the user's instructions to the provided system prompt. You must preserve the prompt's tone, structure, bullet points, and constraints, changing only what is necessary to fulfill the instructions. Return ONLY a single JSON object structured as: {\"prompt\": \"The full updated system prompt text\"}."
