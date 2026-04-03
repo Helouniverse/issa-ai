@@ -92,9 +92,9 @@ stars.forEach((star, index) => {
             });
             const data = await res.json();
             
-            if (data.isHighest === false) {
+            if (data.isHighest === false || rating <= 3) {
                 modalTitle.textContent = "Oh no, let's fix this.";
-                modalDesc.textContent = `Score dropped to ${data.newScore.toFixed(1)}. Tell the AI exactly how to improve its behavior.`;
+                modalDesc.textContent = `Score logged. Tell the AI exactly how to improve its behavior.`;
                 commentContainer.classList.remove("hidden");
             } else {
                 modalTitle.textContent = "Thank you!";

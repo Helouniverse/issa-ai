@@ -116,9 +116,10 @@ def push_new_prompt_version(new_content, new_version):
         supabase.table('prompts').insert({
             'name': 'visa_consultant_v1',
             'content': new_content,
-            'version': new_version
+            'version': new_version,
+            'score': 5.0
         }).execute()
-        print(f"✅ Success! Generated and inserted PROMPT VERSION {new_version}")
+        print(f"✅ Success! Generated and inserted PROMPT VERSION {new_version} with priority score 5.0")
     except Exception as e:
         print(f"❌ Failed to push new prompt: {e}")
 
