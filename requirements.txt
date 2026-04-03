@@ -1,0 +1,7 @@
+flask==3.1.3
+flask-cors
+google-genai
+python-dotenv
+supabase
+requests
+gunicorn

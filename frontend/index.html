@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issa – Personal Visa Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header mimicking Issa Compass -->
+        <header class="chat-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624.85 200.85" class="logo">
+                        <!-- Compass and Issa vectors from provided theme -->
+                        <g id="Compass" fill="#000000" fill-rule="evenodd">
+                            <path d="M348.1,182.7v-3.9c0-0.1,0-0.1,0.1-0.1l3.7-0.6c0.1,0,0.1-0.1,0.1-0.1v-27.4c0-0.1,0-0.1-0.1-0.1l-4.3-1.2c-0.1,0-0.1-0.1-0.1-0.1v-4.6c0-0.1,0.1-0.1,0.1-0.1l11.5-1.5h0.1l0.8,0.5v2.6c1.4,0.8,2.5,1.9,3.2,3.3c1.5,2.1,2.4,5.5,2.6,10.1v19.3c0,0.1,0.1,0.1,0.1,0.1l4.3,0.6c0.1,0,0.1,0.1,0.1,0.1v3.9c0,0.1-0.1,0.1-0.1,0.1h-18V179l3.4-0.6v-19.1c0-2.9-0.3-5-0.8-6.6c-1.3,0-2.7,0.3-4,0.9c0.1,1.3,0.2,2.8,0.2,4.5v19.3l4.1,0.6v3.9h-18.1V179l3.6-0.6v-19.3c0-2.4-0.1-4.4-0.5-5.8c-1.3,0-2.6,0.3-3.9,0.8v25.5l3.9,0.6v3.9h-17.9L348.1,182.7z M298.1,131.9l-0.8,14.2H291l-2.2-10c-3.2-0.1-6.2,1.3-8.3,3.8c-1,1.5-1.7,3.2-2.2,5c-0.5,1.6-0.9,3.4-1.1,5.4c0.5,3.8,1.5,7,3,9.8c2,2,4.8,3.1,7.6,3l3-7.1l5.7,0.5l-1.4,10.7c-1.6,0.3-3.6,0.5-6,0.5c-4.5-1.1-8.2-3.2-11.1-6.4c-2.5-2.8-4.2-6.2-5.2-9.9c0-2.4,0.2-4.8,0.7-7.2c2.2-4.1,5.3-7.2,9.2-9.4c3.3-1.9,7-2.9,10.8-3.2c2.1,0,4.1,0.1,6,0.4L298.1,131.9z"></path>
+                        </g>
+                        <text x="210" y="140" font-family="'Changa One', sans-serif" font-size="120" font-weight="bold" fill="#000000">Issa</text>
+                        <g id="Icon" fill="#000000">
+                            <path d="M102.8,56.2c-9,2.9-23.6,11.2-28.6,16.4c-4.7,4.9-14.1,17-18.9,33.9c-4.8,17-4.3,46-4.3,46s26.5,2.1,48.6-5c19-6.1,23.1-8.5,34.8-20.7c14.4-14.9,14.7-28.1,16.8-39.8c3.2-17.7,3.6-38.7,3.6-38.7C135,47.7,113.6,52.7,102.8,56.2 M102.9,119.1c-10.3,0-18.6-8.3-18.6-18.6c0-10.3,8.3-18.6,18.6-18.6s18.6,8.3,18.6,18.6C121.5,110.8,113.2,119.1,102.9,119.1"></path>
+                            <path d="M102.9,0.5C47.7,0.5,2.9,45.3,2.9,100.5s44.8,100.1,100.1,100.1S203,155.8,203,100.5S158.2,0.5,102.9,0.5 M102.9,186.3c-47.4,0-85.8-38.4-85.8-85.8s38.4-85.8,85.8-85.8s85.8,38.4,85.8,85.8S150.3,186.3,102.9,186.3"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="header-actions">
+                    <span class="tagline uppercase-tag">Visa Support AI</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Area -->
+        <main class="chat-main bg-cream">
+            <div id="chatBox" class="chat-box">
+                <!-- Chat messages will be injected here -->
+                <div class="message consultant">
+                    <div class="bubble">
+                        Hello! Welcome to Issa Compass. How can I help you with your Thai visa journey today?
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Area -->
+        <footer class="chat-footer">
+            <div class="input-container">
+                <textarea id="messageInput" placeholder="Ask about DTV, Non-B, SMART visas..." rows="1"></textarea>
+                <button id="sendBtn" class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon-send">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
+            <div class="footer-notice">
+                Backed by Issa's Software-Automated Intelligence System.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

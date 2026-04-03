@@ -1,0 +1,17 @@
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Environment Variables (CRITICAL)
+.env
+.env.local
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Scripts not needed for production server
+test_*.py
+debug_*.py
+*update_prompt.py
