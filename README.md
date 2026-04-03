@@ -110,12 +110,12 @@ curl -X POST https://worrachot-wongsuksawat-hackathon.up.railway.app/generate-re
 ```
 
 **Test 2: Auto-Learning Feedback Loop `/submit-rating`**
-*(Note: Swap `YOUR-PROMPT-ID` with the active UUID currently loaded in your Supabase 'prompts' table)*
+*(Note: Swap this UUID with any active UUID currently loaded in your Supabase 'prompts' table)*
 ```bash
 curl -X POST https://worrachot-wongsuksawat-hackathon.up.railway.app/submit-rating \
 -H "Content-Type: application/json" \
 -d '{
-  "promptId": "YOUR-PROMPT-ID",
+  "promptId": "071fcddf-fb34-4dbe-95a9-64ab96a064a6",
   "rating": 4
 }'
 ```
