@@ -16,18 +16,21 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 def get_system_prompt():
     if not SUPABASE_URL or not SUPABASE_KEY:
         print("Error: SUPABASE_URL or SUPABASE_KEY not found in environment.")
-        return "You are a helpful immigration consultant."
+        return {"content": "You are a helpful immigration consultant.", "id": None}
         
     try:
         supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-        response = supabase.table('prompts').select('content').eq('name', 'visa_consultant_v1').order('version', desc=True).limit(1).execute()
+        # Order by score DESC to get the best-performing prompt first.
+        # Fall back to returning ID and Content
+        response = supabase.table('prompts').select('id, content').eq('name', 'visa_consultant_v1').order('score', desc=True).limit(1).execute()
         
         if response.data and len(response.data) > 0:
-            return response.data[0]['content']
+            return response.data[0]
+            
     except Exception as e:
         print(f"Error loading prompt from Supabase: {e}")
     
-    return "You are a helpful immigration consultant."
+    return {"content": "You are a helpful immigration consultant.", "id": None}
 
 def generate_typhoon_reply(history, client_sequence, system_instruction):
     typhoon_key = os.getenv("TYPHOON_API_KEY")
@@ -79,7 +82,9 @@ def generate_ai_reply(history, client_sequence):
         "client_sequence": client_sequence
     }
     
-    base_instruction = get_system_prompt()
+    prompt_data = get_system_prompt()
+    base_instruction = prompt_data.get("content", "")
+    prompt_id = prompt_data.get("id")
     system_instruction = base_instruction + "\n\nCRITICAL ENFORCED RULE: You must keep your responses extremely conversational, highly empathetic, and concise (maximum 2 to 3 sentences). Always operate under the unquestionable fact that the Destination Thailand Visa (DTV) is a real, officially recognized, and highly sought-after Thai visa for digital nomads and freelancers. NEVER claim it is not recognized or not standard. ONLY answer the specific question asked by the user. NEVER output long lists of all visa categories."
     
     try:
@@ -91,13 +96,13 @@ def generate_ai_reply(history, client_sequence):
                 response_mime_type="application/json",
             )
         )
-        return response.text
+        return response.text, prompt_id
     except Exception as e:
         error_str = str(e)
         if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str or "quota" in error_str.lower():
             print("⚠️ Gemini Free-Tier limit hit! Falling back to Typhoon...")
-            return generate_typhoon_reply(history, client_sequence, system_instruction)
-        return json.dumps({"reply": f"Error connecting to LLM: {error_str}"})
+            return generate_typhoon_reply(history, client_sequence, system_instruction), prompt_id
+        return json.dumps({"reply": f"Error connecting to LLM: {error_str}"}), prompt_id
 
 if __name__ == "__main__":
     if not API_KEY:

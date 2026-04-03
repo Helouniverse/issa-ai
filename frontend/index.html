@@ -59,6 +59,25 @@
                 Backed by Issa's Software-Automated Intelligence System.
             </div>
         </footer>
+
+        <!-- Rating Modal -->
+        <div id="ratingModal" class="modal-overlay hidden">
+            <div class="modal-content glass">
+                <h3 id="modalTitle">How is my advice?</h3>
+                <p id="modalDesc" style="font-size: 0.9rem; color: var(--text-gray-light); margin-top: 0.4rem;">Please rate your AI assistant experience.</p>
+                
+                <div id="starContainer" class="stars">
+                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                </div>
+                
+                <div id="commentContainer" class="hidden" style="margin-top: 1rem;">
+                    <textarea id="feedbackComment" placeholder="Tell us what went wrong so I can automatically learn..." rows="3" style="width: 100%; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem;"></textarea>
+                    <button id="submitCommentBtn" class="btn-primary" style="width: 100%;">Teach AI</button>
+                </div>
+                
+                <button id="closeModalBtn" class="btn-text">Close</button>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
