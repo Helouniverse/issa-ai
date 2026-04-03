@@ -95,9 +95,38 @@ Provide a JSON object containing simply:
    ```
 3. Open `http://localhost:5001` in your browser.
 
-## 📡 API Endpoints
+## 📡 API Endpoints & cURL Testing
 
-- `GET /` - Serves the main UI interface.
-- `POST /generate-reply` - Generate an AI response strictly based on conversation history.
-- `POST /submit-rating` - Adjust the Exponential Moving Average score of the active prompt.
-- `POST /submit-comment` - Triggers the automated Meta-Editor prompt logic fix.
+You can use the following `cURL` commands to test the logic circuits of the API directly from your terminal!
+
+**Test 1: Chat Generation `/generate-reply`**
+```bash
+curl -X POST https://worrachot-wongsuksawat-hackathon.up.railway.app/generate-reply \
+-H "Content-Type: application/json" \
+-d '{
+  "clientSequence": "Hello! Can you help me learn about the DTV visa?",
+  "chatHistory": []
+}'
+```
+
+**Test 2: Auto-Learning Feedback Loop `/submit-rating`**
+*(Note: Swap `YOUR-PROMPT-ID` with the active UUID currently loaded in your Supabase 'prompts' table)*
+```bash
+curl -X POST https://worrachot-wongsuksawat-hackathon.up.railway.app/submit-rating \
+-H "Content-Type: application/json" \
+-d '{
+  "promptId": "YOUR-PROMPT-ID",
+  "rating": 4
+}'
+```
+
+**Test 3: Meta-Editor Self Repair `/submit-comment`**
+*(This interacts with our secondary Meta AI configuration to mathematically repair prompts that slipped in performance based on user frustration)*
+```bash
+curl -X POST https://worrachot-wongsuksawat-hackathon.up.railway.app/submit-comment \
+-H "Content-Type: application/json" \
+-d '{
+  "comment": "The AI is too robotic and gave lists instead of normal talk. Please fix the prompt.",
+  "chatHistory": []
+}'
+```
