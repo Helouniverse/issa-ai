@@ -1,5 +1,5 @@
-// Endpoint URL relative to where the server runs. Adjust if deploying separately.
-const API_URL = "http://127.0.0.1:5001/generate-reply";
+// We use a relative path now since Flask is serving this frontend natively!
+const API_URL = "/generate-reply";
 
 const chatBox = document.getElementById("chatBox");
 const messageInput = document.getElementById("messageInput");
