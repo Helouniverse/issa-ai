@@ -185,7 +185,11 @@ def call_editor_ai(editor_input, system_prompt):
         json_str = editor_output[editor_output.rfind('{'):editor_output.rfind('}')+1]
         
     try:
-        return json.loads(json_str)["prompt"]
+        try:
+            return json.loads(json_str)["prompt"]
+        except json.JSONDecodeError:
+            import ast
+            return ast.literal_eval(json_str)["prompt"]
     except Exception as parse_e:
         print(f"Failed to parse LLM json: {parse_e}")
         return None
