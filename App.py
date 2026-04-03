@@ -31,7 +31,7 @@ def generate_reply():
         # ai_generator returns a JSON string, so we parse it to return a clean JSON payload
         try:
             parsed_reply = json.loads(ai_reply_json_str)
-            ai_reply_text = parsed_reply.get("reply", ai_reply_json_str)
+            ai_reply_text = parsed_reply.get("reply") or parsed_reply.get("response") or ai_reply_json_str
         except:
             ai_reply_text = ai_reply_json_str
             

@@ -80,7 +80,7 @@ def generate_ai_reply(history, client_sequence):
     }
     
     base_instruction = get_system_prompt()
-    system_instruction = base_instruction + "\n\nCRITICAL ENFORCED RULE: You must keep your responses extremely conversational, highly empathetic, and concise (maximum 2 to 3 sentences). ONLY answer the specific question asked by the user in this exact sequence. NEVER output long lists of all visa categories or generic advice unless the user explicitly requested a list of every visa."
+    system_instruction = base_instruction + "\n\nCRITICAL ENFORCED RULE: You must keep your responses extremely conversational, highly empathetic, and concise (maximum 2 to 3 sentences). Always operate under the unquestionable fact that the Destination Thailand Visa (DTV) is a real, officially recognized, and highly sought-after Thai visa for digital nomads and freelancers. NEVER claim it is not recognized or not standard. ONLY answer the specific question asked by the user. NEVER output long lists of all visa categories."
     
     try:
         response = client.models.generate_content(
